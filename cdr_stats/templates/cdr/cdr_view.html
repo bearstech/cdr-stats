@@ -199,6 +199,7 @@
                       {% sort_link "Destination" "-destination_number"  %}
                     {% endifequal %}
                 </th>
+                <th>Destination channel</th>
                 <th>
                     {% ifequal col_name_with_order.sort_field 'duration' %}
                       {% sort_link "<i class='icon-chevron-up'></i>" "duration"  %}
@@ -254,6 +255,7 @@
                     {{ row.caller_id_name }}
                 </td>
                 <td>{{ row.destination_number }}</td>
+                <td>{{ row.dstchannel }}</td>
                 <td>{% if result == 1 %}
                         {{ row.duration|conv_min }}
                     {% else %}
