@@ -23,6 +23,7 @@ from cdr.functions_def import get_hangupcause_id
 from cdr_alert.functions_blacklist import chk_destination
 from datetime import datetime
 import re
+import os
 import sys
 import random
 
@@ -142,8 +143,8 @@ def import_cdr_asterisk(shell=False):
         if db_engine == 'mysql':
             cursor.execute("SELECT dst, UNIX_TIMESTAMP(calldate), clid, channel," \
                     "duration, billsec, disposition, accountcode, uniqueid," \
-                    " %s FROM %s WHERE import_cdr=0  LIMIT 0, 1000" % \
-                    (settings.ASTERISK_PRIMARY_KEY, table_name))
+                    " %s FROM %s WHERE import_cdr=0  LIMIT 0, %s" % \
+                    (settings.ASTERISK_PRIMARY_KEY, table_name, os.environ.get('LIMIT', '1000')))
         elif db_engine == 'pgsql':
             cursor.execute("SELECT dst, extract(epoch FROM calldate), clid, channel," \
                     "duration, billsec, disposition, accountcode, uniqueid," \
@@ -246,10 +247,10 @@ def import_cdr_asterisk(shell=False):
             try:
                 #TODO: Build Update by batch of max 100
                 cursor_updated.execute(
-                        "UPDATE %s SET import_cdr=1 WHERE %s=%d" % \
+                        "UPDATE %s SET import_cdr=1 WHERE %s=%s" % \
                         (table_name, settings.ASTERISK_PRIMARY_KEY, acctid))
             except:
-                print_shell(shell, "ERROR : Update failed (%s:%d)" % \
+                print_shell(shell, "ERROR : Update failed (%s:%s)" % \
                                     (settings.ASTERISK_PRIMARY_KEY, acctid))
 
             #Fetch a other record

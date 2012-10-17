@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+
 LOG_DIR = os.environ.get('LOG_DIR', '.')
 
 #LOGGING
@@ -72,14 +73,21 @@ LOGGING = {
     },
 }
 
+LOCAL_SWITCH_TYPE = 'asterisk'
+ASTERISK_PRIMARY_KEY = 'uniqueid'
+
 from pytheon.utils import engine_dict
+
 db = engine_dict()
-ASTERISK_MYSQL = {
+CDR_BACKEND = {
     '127.0.0.1': {
+        'db_engine': 'mysql',
         'db_name': db['database'],
         'table_name': 'cdr',
         'host': 'localhost',
         'user': db['username'],
+        'port': 3306,
         'password': db['password'],
     },
 }
+
