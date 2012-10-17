@@ -10,7 +10,7 @@ bin/touch-wsgi
 cron=`tempfile --prefix=csc-`
 
 cat << EOF > $cron
-*/10 * * * * LIMIT=200 $PWD/bin/manage sync_cdr_asterisk > /dev/null
+*/10 * * * * $PWD/bin/manage sync_cdr_asterisk > /dev/null
 EOF
 
 #crontab $cron

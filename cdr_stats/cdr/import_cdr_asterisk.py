@@ -143,7 +143,7 @@ def import_cdr_asterisk(shell=False):
         if db_engine == 'mysql':
             cursor.execute("SELECT dst, UNIX_TIMESTAMP(calldate), clid, channel," \
                     "duration, billsec, disposition, accountcode, uniqueid," \
-                    " %s FROM %s WHERE import_cdr=0  LIMIT 0, %s" % \
+                    " %s, dstchannel FROM %s WHERE import_cdr=0  LIMIT 0, %s" % \
                     (settings.ASTERISK_PRIMARY_KEY, table_name, os.environ.get('LIMIT', '1000')))
         elif db_engine == 'pgsql':
             cursor.execute("SELECT dst, extract(epoch FROM calldate), clid, channel," \
@@ -164,6 +164,7 @@ def import_cdr_asterisk(shell=False):
                 callerid_number = callerid
 
             channel = row[3]
+            dstchannel = row[10]
 
             duration = set_int_default(row[4], 0)
             billsec = set_int_default(row[5], 0)
@@ -209,6 +210,7 @@ def import_cdr_asterisk(shell=False):
                 #'read_codec': '',
                 #'write_codec': '',
                 'channel': channel.decode('utf-8', 'ignore'),
+                'dstchannel': dstchannel.decode('utf-8', 'ignore'),
                 'cdr_type': CDR_TYPE["asterisk"],
                 'cdr_object_id': acctid,
                 'country_id': country_id,
