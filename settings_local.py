@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
 
+TIME_ZONE = 'Europe/Paris'
+LANGUAGE_CODE = 'en-us'
+
 LOG_DIR = os.environ.get('LOG_DIR', '.')
 
 #LOGGING
