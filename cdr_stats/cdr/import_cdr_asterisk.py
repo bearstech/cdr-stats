@@ -220,19 +220,6 @@ def import_cdr_asterisk(shell=False):
             # record global CDR
             # TODO: implement Bulk insert
             CDR_COMMON.insert(cdr_record)
-            """
-            print_shell(shell, "Sync CDR (%s:%d, cid:%s, dest:%s, dur:%s, "\
-                                "hg:%s, country:%s, auth:%s, calldate:%s)" % (
-                                    settings.ASTERISK_PRIMARY_KEY,
-                                    acctid,
-                                    callerid_number,
-                                    destination_number,
-                                    duration,
-                                    hangup_cause_id,
-                                    country_id,
-                                    authorized,
-                                    start_uepoch.strftime('%Y-%m-%d %M:%S'),))
-            """
             count_import = count_import + 1
 
             daily_date = datetime.fromtimestamp(int(row[1]))
@@ -254,6 +241,8 @@ def import_cdr_asterisk(shell=False):
             except:
                 print_shell(shell, "ERROR : Update failed (%s:%s)" % \
                                     (settings.ASTERISK_PRIMARY_KEY, acctid))
+            else:
+                print_shell(shell, "%r" % cdr_record)
 
             #Fetch a other record
             row = cursor.fetchone()
