@@ -235,9 +235,10 @@ def import_cdr_asterisk(shell=False):
             #Flag the CDR
             try:
                 #TODO: Build Update by batch of max 100
-                cursor_updated.execute(
-                        "UPDATE %s SET import_cdr=1 WHERE %s=%s" % \
-                        (table_name, settings.ASTERISK_PRIMARY_KEY, acctid))
+
+                sql = "UPDATE %s SET import_cdr=1 WHERE %s=%%s" % (
+                                    table_name, settings.ASTERISK_PRIMARY_KEY)
+                cursor_updated.execute(sql, [acctid])
             except:
                 print_shell(shell, "ERROR : Update failed (%s:%s)" % \
                                     (settings.ASTERISK_PRIMARY_KEY, acctid))
