@@ -209,7 +209,7 @@
                       {% sort_link "Duration" "-duration"  %}
                     {% endifequal %}
                 </th>
-                <th>
+                <!-- th>
                     {% ifequal col_name_with_order.sort_field 'billsec' %}
                       {% sort_link "<i class='icon-chevron-up'></i>" "billsec"  %}
                       <abbr title='{% trans "Bill Seconds" %}'>{% trans "Bill" %}</abbr>
@@ -219,7 +219,7 @@
                         {% sort_link "Bill" "-billsec"  %}
                         </abbr>
                     {% endifequal %}
-                </th>
+                </th -->
                 <th>
                     {% ifequal col_name_with_order.sort_field 'hangup_cause_id' %}
                       {% sort_link "<i class='icon-chevron-up'></i>" "hangup_cause_id"  %}
@@ -229,7 +229,7 @@
                       {% sort_link "Hangup Cause" "-hangup_cause_id"  %}
                     {% endifequal %}
                 </th>
-                <th>
+                <!-- th>
                     {% ifequal col_name_with_order.sort_field 'accountcode' %}
                       {% sort_link "<i class='icon-chevron-up'></i>" "accountcode"  %}
                       {% trans "Account" %}
@@ -237,7 +237,7 @@
                     {% else %}
                       {% sort_link "Account" "-accountcode"  %}
                     {% endifequal %}
-                </th>
+                </th -->
                 <th>
                 </th>
             </tr>
@@ -262,18 +262,18 @@
                         {{ row.duration }}
                     {% endif %}
                 </td>
-                <td>{% if result == 1 %}
+                <!-- td>{% if result == 1 %}
                         {{ row.billsec|conv_min }}
                     {% else %}
                         {{ row.billsec }}
                     {% endif %}
-                </td>
+                </td -->
                 <td>
                   {% cache 1800 hangupcause_name row.hangup_cause_id %}
                     {{ row.hangup_cause_id|hangupcause_name }}
                   {% endcache %}
                 </td>
-                <td>{{ row.accountcode }}</td>
+                <!-- td>{{ row.accountcode }}</td -->
                 <td>
                     <div class="flag_icon">
                         {% if row.country_id %}
