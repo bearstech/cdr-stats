@@ -87,10 +87,9 @@ CDR_BACKEND = {
         'db_engine': 'mysql',
         'db_name': db['database'],
         'table_name': 'cdr',
-        'host': 'localhost',
+        'host': db['host'],
         'user': db['username'],
         'port': 3306,
         'password': db['password'],
     },
 }
-
