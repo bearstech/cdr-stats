@@ -208,19 +208,6 @@ INSTALLED_APPS = (
     'apiplayground',
 )
 
-# Debug Toolbar
-try:
-    import debug_toolbar
-except ImportError:
-    pass
-else:
-    INSTALLED_APPS = INSTALLED_APPS + ('debug_toolbar',)
-    MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + \
-        ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
-
 # Nose
 try:
     import nose
