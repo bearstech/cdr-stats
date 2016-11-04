@@ -79,17 +79,32 @@ LOGGING = {
 LOCAL_SWITCH_TYPE = 'asterisk'
 ASTERISK_PRIMARY_KEY = 'uniqueid'
 
-from pytheon.utils import engine_dict
+db = {}
+with open('/var/www/cdrstats/.my.cnf') as fd:
+    for line in fd:
+        if '=' in line:
+            k, v = line.split('=')
+            db[k.strip()] = v.strip()
 
-db = engine_dict()
 CDR_BACKEND = {
     '127.0.0.1': {
         'db_engine': 'mysql',
-        'db_name': db['database'],
+        'db_name': 'asterisk',
         'table_name': 'cdr',
-        'host': db['host'],
-        'user': db['username'],
+        'host': '',
+        'user': db['user'],
         'port': 3306,
-        'password': db['password'],
+        'password': db['pass'],
     },
 }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+#        'HOST': 'crystal',
+        'NAME': 'asterisk',
+        'PASSWORD': db['pass'],
+#        'PORT': 3306,
+        'USER': 'cdrstats'}}
+
+
